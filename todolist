@@ -1,0 +1,48 @@
+class TodoList
+  def initialize
+    @tasks = []
+  end
+
+  def add_task(task)
+    @tasks << task
+  end
+
+  def remove_task(task)
+    @tasks.delete(task)
+  end
+
+  def print_tasks
+    puts "Tasks:"
+    @tasks.each_with_index do |task, index|
+      puts "#{index + 1}. #{task}"
+    end
+  end
+end
+
+todo_list = TodoList.new
+
+loop do
+  puts "What would you like to do? (add/remove/print/exit)"
+  choice = gets.chomp.downcase
+
+  case choice
+  when 'add'
+    puts "Enter task to add:"
+    task = gets.chomp
+    todo_list.add_task(task)
+  when 'remove'
+    puts "Enter index of task to remove:"
+    index = gets.chomp.to_i
+    if index.between?(1, todo_list.size)
+      todo_list.remove_task(todo_list[index - 1])
+    else
+      puts "Invalid index"
+    end
+  when 'print'
+    todo_list.print_tasks
+  when 'exit'
+    break
+  else
+    puts "Invalid choice"
+  end
+end
